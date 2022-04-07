@@ -1,11 +1,11 @@
 package main 
 import models.Message
-import printer.Printer.printReport
 
-//import models.Message
+
+
 import play.api.libs.json._
 
-import models.Message
+
 import scala.io.Source  // from the Scala standard library
 import java.time._
 
@@ -15,7 +15,7 @@ object Main {
 
   def main(args: Array[String]): Unit = {
 
-    val absPath = "./"
+    val absPath = "./ressources/"
     val fileName = absPath + "data_sample.json"
 
     val random = scala.util.Random

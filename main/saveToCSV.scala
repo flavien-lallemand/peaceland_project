@@ -1,3 +1,5 @@
+package csvcreation
+
 import org.apache.spark.sql.SparkSession
 import org.apache.spark.SparkContext
 import org.apache.spark.SparkConf
@@ -37,7 +39,7 @@ object SaveToCSV {
       .add("pwId", StringType)
       .add("pwLong", StringType)
       .add("pwLat", StringType)
-      .add("citizensAndScores",ArrayType(subschema)) //ArrayType(subschema))
+      .add("citizensAndScores",ArrayType(subschema)) 
       .add("words", StringType)
       .add("date", StringType)
       .add("battery", StringType)
@@ -56,13 +58,8 @@ object SaveToCSV {
       .option("failOnDataLoss", false)
       .load()
       .selectExpr("CAST(value AS STRING)")
-
-      .select(from_json($"value", schema).as("report"))
-      
+      .select(from_json($"value", schema).as("report"))  
       .select($"report.pwID", $"report.pwLong", $"report.pwLat", $"report.citizensAndScores.peaceScore".cast("string"), $"report.citizensAndScores.name".cast("string"), $"report.words".cast("string"),$"report.date", $"report.battery", $"report.temperature")
-
-
-
       .writeStream
       .format("csv")
       .option("format", "append")
